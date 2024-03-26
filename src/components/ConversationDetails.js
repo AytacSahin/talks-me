@@ -41,7 +41,7 @@ const ConversationDetails = ({ route }) => {
 
             <View style={styles.header}>
                 <TouchableOpacity style={styles.backButton} onPress={goBack}>
-                    <MaterialIcons name="arrow-back" size={24} color="white" />
+                    <MaterialIcons name="arrow-back" size={24} color="#075E54" />
                 </TouchableOpacity>
                 <Text style={styles.headerText}>{conversation.name}</Text>
             </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backButton: {
         width: 30,
         height: 30,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',

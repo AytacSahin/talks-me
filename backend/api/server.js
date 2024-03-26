@@ -1,12 +1,20 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const morgan = require('morgan');
+
+const StudentsRouter = require('../api/users/users-router');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const PORT = process.env.PORT || 5000;
+// Global Middlewares
+app.use(express.json());
+app.use(morgan("dev"));
+
+// Routers
+app.use("/users", StudentsRouter);
 
 io.on('connection', (socket) => {
     console.log('A client connected');
@@ -16,6 +24,12 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Global Error Middleware
+app.use((err, req, res, next) => {
+    // eslint-disable-line
+    res
+        .status(err.status || 500)
+        .json({ message: err.message || "SERVER ERROR!...." });
 });
+
+module.exports = server;
